@@ -59,4 +59,27 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-  }
+}
+#landlordPage {
+    height: 90%;
+    width: 90%;
+    margin: 2% auto;
+    background-color: rgb(233, 233, 233);
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    padding: 2%;
+}
+#tenantPage {
+    height: 90%;
+    width: 90%;
+    margin: 2% auto;
+    background-color: rgb(233, 233, 233);
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    padding: 2%;
+}
+.logout{
+    float: right;
+}
