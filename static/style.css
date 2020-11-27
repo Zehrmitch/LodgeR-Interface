@@ -24,12 +24,12 @@ footer{
     border-width: 5px;
 }
 #landlordLogin{
-    float: left;
-    margin-left: 10%;
-}
-#tenantLogin{
     float: right;
     margin-right: 10%;
+}
+#tenantLogin{
+    float: left;
+    margin-left: 10%;
 }
 img{
     display: block;
