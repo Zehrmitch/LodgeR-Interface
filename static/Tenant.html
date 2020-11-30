@@ -9,7 +9,18 @@
     <div id="tenantPage">
         <h1>Tenant Dashboard</h1>
         <button class="logout" onclick="location.href = 'Login.html';">Log out</button>
+        <div id="tenantSearchByLocation">
+            <h2>Search by location</h2>
+            <p>Location</p>
+            <input id="locationSearch" type="text"><br>
+            <p>Max Price</p>
+            <input id="priceSearch" type="text"><br>
+            <button>Search</button>
+            <ul id="tenant1Results">
+            </ul>
+        </div>
     </div>
+    
 
     <script defer type="text/javascript" src="scripts.js"></script>
 </body>
