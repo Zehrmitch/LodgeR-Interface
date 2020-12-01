@@ -80,6 +80,12 @@ button {
     border-width: 5px;
     padding: 2%;
 }
+#tenantSearchByLocation{
+    width: 33%;
+}
+#landlordShowLocations{
+    width: 33%;
+}
 .logout{
     float: right;
 }

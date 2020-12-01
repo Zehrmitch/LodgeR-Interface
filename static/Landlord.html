@@ -9,10 +9,25 @@
     <div id="landlordPage">
         <h1>Landlord Dashboard</h1>
         <button class="logout" onclick="location.href = 'Login.html';">Log out</button>
+        <div id="landlordShowLocations">
+            <h2>Search by location</h2>
+            <p>Landlord Name</p>
+            <input id="landlordName" type="text"><br>
+            <button>Search</button>
+            <ul id="landlord1Results">
+            </ul>
+        </div>
 
-        <p>Search for all properties</p>
-        <input id="landlordProperties" type="text"><br>
-        
+        <div id="ladnlordUpdatePrice">
+            <h2>Update Price</h2>
+            <p>Property Number</p>
+            <input id="landlordPropertyNumber" type="text"><br>
+            <p>New Price</p>
+            <input id="landlordNewPrice" type="text"><br>
+            <button>Search</button>
+            <ul id="landlord2Results">
+            </ul>
+        </div>
 
         <p>Find all properties over a price</p>
         <input id="landlordProperties" type="text"><br>
