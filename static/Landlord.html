@@ -9,40 +9,31 @@
     <div id="landlordPage">
         <h1>Landlord Dashboard</h1>
         <button class="logout" onclick="location.href = 'Login.html';">Log out</button>
-        <div id="landLordShowLocations">
+        <div id="landlordShowLocations">
             <h2>Search by location</h2>
             <p>Landlord Number</p>
             <input id="landLordNum" type="text"><br>
             <p>New Price</p>
             <input id="landLordPrice" type="text"><br>
-            <button>Update Prices</button>
+            <button onclick="updateLPropertyPrice()">Update Prices</button>
         </div>
 
-        <div id="landLordAddAmmenity">
-            <h2>Add Ammenity</h2>
-            <p>Account Number</p>
-            <input id="landLordAccountNumber" type="text"><br>
-            <p>Minimum Price</p>
-            <input id="landLordMinPrice" type="number"><br>
-            <p>New Ammenity</p>
-            <input id="landLordNewAmmenity" type="text"><br>
-            <button>Add Ammenity</button>
-            <ul id="landLord2Results">
+        <div id="landlordUpdatePrice">
+            <h2>Update Price</h2>
+            <p>Property Number</p>
+            <input id="landlordPropertyNumber" type="text"><br>
+            <p>New Price</p>
+            <input id="landlordNewPrice" type="text"><br>
+            <button>Search</button>
+            <ul id="landlord2Results">
             </ul>
-            <div id="updatePriceDisplay">
 
-            </div>
         </div>
 
-        <div id="landLordLowestStars">
-            <h2>Lowest Stars</h2>
-            <p>Account Number</p>
-            <input id="landLordAccountNumber" type="text"><br>
-            <button>Display Results</button>
-            <ul id="landLord2Results">
-            </ul>
-            <button>Delete Results</button>
-        </div>
+        <p>Find all properties over a price</p>
+        <input id="landlordProperties" type="text"><br>
+        <p>Add ammenity</p>
+        <input id="landlordProperties" type="text"><br>
     </div>
 
 
