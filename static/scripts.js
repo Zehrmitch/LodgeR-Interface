@@ -112,6 +112,46 @@ app.post('/addamenity', function(req,res){
     
 })
 
+/*
+SELECT * AS pSearch
+FROM property p
+WHERE p.location LIKE “%location%” AND p.price < 500.00 
+
+//user selects a property 
+SELECT currentlyRented AS isRented
+FROM propertyRental p, pSearch s
+WHERE p.propertyNum = s.pSearch
+
+IF propertyNum EXISTS isRented 
+//display available times for property
+ELSE 
+//display all times
+
+INSERT INTO propertyRental
+VALUES(all the proper values for one entry)
+
+IF date rented is now
+UPDATE isAvailable
+FROM property p
+WHERE p.propertyNum LIKE  ‘%the selected property%’*/
+
+
+app.post('/searchproperty', function(req,res){
+    let location = 'France';
+
+    con.query((`SELECT * FROM property p WHERE p.address LIKE "%${location}%" AND p.price < 500.00 `),(error, result) =>{
+        if (error) {
+            console.log("error: ", error);
+        }
+        psearch = result[0];
+        console.log(psearch)
+        con.query((`SELECT currentlyRented FROM propertyRental p, psearch s WHERE p.propertyNum = s.propertyNum`), (error1, result1) => {
+
+        })
+
+    })
+})
+
 var server = app.listen(3000, function () { 
     console.log('Server is listening at port 3000...'); 
 }); 
