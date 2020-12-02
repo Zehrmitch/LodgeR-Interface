@@ -2,7 +2,7 @@ html{
     font-family: Arial, Helvetica, sans-serif;
     background-image: url('Images/bricks.jpg');
     background-size: 100% 100%;
-    height: 110%;
+    height: auto;
 }
 footer{
     float: right;
@@ -60,8 +60,8 @@ button {
     display: inline-block;
     font-size: 16px;
 }
-#landlordPage {
-    height: 90%;
+#landLordPage {
+    height: auto;
     width: 90%;
     margin: 2% auto;
     background-color: rgb(233, 233, 233);
@@ -71,7 +71,7 @@ button {
     padding: 2%;
 }
 #tenantPage {
-    height: 90%;
+    height: auto;
     width: 90%;
     margin: 2% auto;
     background-color: rgb(233, 233, 233);
@@ -81,10 +81,16 @@ button {
     padding: 2%;
 }
 #tenantSearchByLocation{
-    width: 33%;
+    width: 50%;
 }
-#landlordShowLocations{
-    width: 33%;
+#landLordShowLocations{
+    width: 50%;
+}
+#landLordAddAmmenity{
+    width: 50%;
+}
+#landLordLowestStars{
+    width: 50%;
 }
 .logout{
     float: right;
