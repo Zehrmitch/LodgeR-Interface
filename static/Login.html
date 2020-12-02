@@ -9,11 +9,11 @@
 <body>
     <div id="login">
         <img src="Images/logo.png" alt="LodgeR logo">
-        <form action="Tenant.html" id="tenantLogin">
+        <form onsubmit="tenantLogin( loginEmailT.value, loginPasswordT.value)" id="tenantLogin">
             <label>Email</label><br>
-            <input required id="loginEmailT" type="text" placeholder="john@example.ca"><br>
+            <input required id="loginEmailT" type="text" value="mitchell@gmail.com"><br>
             <label>Password</label><br>
-            <input required id="loginPasswordT" type="password"><br>
+            <input required id="loginPasswordT" type="password" value="abcdefg"><br>
             <button>Login as Tenant</button>
         </form>
         <form onsubmit="landlordLogin( loginEmailL.value, loginPasswordL.value)" id="landlordLogin">
