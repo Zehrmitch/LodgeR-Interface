@@ -5,6 +5,8 @@ const express = require('express');
 const app = express();
 const mssql = require("mssql");
 
+app.use('/', express.static('static'))
+
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -20,6 +22,10 @@ con.connect(function (err) {
 });
 
 //login landlord
+app.get('/',function(req,res){
+res.render('/Login.html');
+});
+
 app.get('/loginlandlord/:email/:password', function (req, res) {
     console.log("Connected!");
     email = req.params.email;
@@ -40,14 +46,15 @@ app.get('/loginlandlord/:email/:password', function (req, res) {
 app.get('/logintenant/:email/:password', function (req, res) {
     email = req.params.email;
     password = req.params.password;
-
+    console.log(email + " " + password);
     con.query("SELECT * FROM tenant WHERE email = ? AND password = ?", [email, password], (error, results) => {
         if (error) {
             console.log("error: ", error);
             res.status(400).send("Login failed")
         } else {
             console.log(results);
-            res.status(200).send(results);
+            res.status(200).send("Login success");
+
         }
     })
 });
@@ -68,10 +75,13 @@ app.put('/updateproperties/:price/:num', function (req, res) {
 });
 
 //find a property and add a review 
-app.put('/addreview', function (req, res) {
-    let name = "Nola N. Valdez";
-    let numOfStars = 7;
-    let date = '2020-07-11';
+app.put('/addreview/:name/:review', function (req, res) {
+    let name=req.params.name;
+    let numOfStars=req.params.review;
+    let date=new Date();
+   // let name = "Nola N. Valdez";
+    //let numOfStars = 7;
+   // let date = '2020-07-11';
 
     con.query((`SELECT * FROM propertyRental p WHERE p.accountNumT = (SELECT accountNumT FROM tenant t WHERE t.name = '${name}')`), (error, results) => {
         if (error) {
@@ -109,7 +119,8 @@ app.post('/addamenity/:num/:newAmmenity', function (req, res) {
 
     let landlordNum=req.params.num;
     let amenity=req.params.newAmmenity;
-
+    
+    console.log(landlordNum);
     con.query((`SELECT propertyNum 
     FROM property
     WHERE price > 200 AND accountNumL = ${landlordNum}`), (error, results) => {

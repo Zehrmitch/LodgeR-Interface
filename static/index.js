@@ -1,16 +1,16 @@
 //Landlord login
 function landlordLogin(landlordEmail,landlordPassword){
-    fetch('/api/loginlandlord/'+landlordEmail+'/'+landlordPassword)
+    fetch('/loginlandlord/'+landlordEmail+'/'+landlordPassword)
     .then(
         function(response){ 
           console.log("Landlord Login");
            if(response){
-             window.href = "Landlord.html";
+             window.location.href = "Landlord.html";
 //load landlord.html
            }
            else{
 //load Login.html
-            window.href = "Login.html";
+            window.location.href = "Index.html";
            }
       }
     )
@@ -21,16 +21,16 @@ function landlordLogin(landlordEmail,landlordPassword){
 
 //Tenant login
 function tenantLogin(tenantEmail,tenantPassword){
-    fetch('/api/logintenant/'+tenantEmail+'/'+tenantPassword)
+    fetch('/logintenant/'+tenantEmail+'/'+tenantPassword)
     .then(
         function(response){ 
-           if(response){
-            window.href = "Tenant.html";
-//load tenant.html
+          console.log(response.status);
+           if(response.status==200){
+            window.location.href = "Tenant.html";
            }
            else{
-//load login.html
-            window.href = "Login.html";
+
+            window.location.href = "Index.html";
            }
       }
     )
@@ -48,7 +48,7 @@ function updateLPropertyPrice(){
   if((accountNumL=="")||(updatePrice=="")){
     alert("Please enter enter inputs");
   }
-  let url='/api/updateproperties/'+updatePrice+'/'+accountNumL;
+  let url='/updateproperties/'+updatePrice+'/'+accountNumL;
   fetch(url, {method:'PUT'})
   .then(
       function(response){ 
@@ -60,7 +60,7 @@ function updateLPropertyPrice(){
        display.appendChild(error);
          }
          else{
-      display=document.getElementbyId('landlord2Results');
+      display=document.getElementById('landlord2Results');
       success=document.createElement('p');
        successmsg=document.createTextNode("Successfully updated price");
        success.appendChild(successmsg);
@@ -74,15 +74,15 @@ console.log("Error:", error);
   });
 }
 
-function addBonusAmenity(){
+function addBonusAmmenity(){
   var accountNumL1=document.getElementById('landLordAccountNumber').value;
   var newAmmenity=document.getElementById('landLordNewAmmenity').value;
   
-  if((accountNumL1=="")||(minPrice=="")||(newAmmenity=="")){
+  if((accountNumL1=="")||(newAmmenity=="")){
     alert("Please enter enter inputs");
   }
 
-  let url='/api/addamenity/'+accountNumL1+'/'+newAmmenity;
+  let url='/addamenity/'+accountNumL1+'/'+newAmmenity;
   fetch(url, {method:'POST'})
   .then(
       function(response){ 
@@ -94,9 +94,45 @@ function addBonusAmenity(){
        display.appendChild(error);
          }
          else{
-      display=document.getElementbyId('updatePriceDisplay');
+      display=document.getElementById('updatePriceDisplay');
       success=document.createElement('p');
        successmsg=document.createTextNode("Successfully added ammenity");
+       success.appendChild(successmsg);
+       display.appendChild(success);
+
+         }
+    }
+  )
+.catch(function(error){
+console.log("Error:", error);
+  });
+}
+
+function addReview(){
+  var review1=document.getElementById('rev').value;
+  var tName=document.getElementById('tenantName').value;
+
+
+  if((tName=="")||(review1="")){
+    alert("Please enter enter inputs");
+  }
+  console.log("review: " + review1);
+  console.log(tName)
+  let url='/addreview/'+tName+'/'+review1;
+  fetch(url, {method:'PUT'})
+  .then(
+      function(response){ 
+         if(response.status!=200){
+       display=document.getElementById('reviewResults');
+       error=document.createElement('p');
+       errormsg=document.createTextNode("Could not add review.");
+       error.appendChild(errormsg);
+       display.appendChild(error);
+         }
+         else{
+      display=document.getElementById('reviewResults');
+      success=document.createElement('p');
+       successmsg=document.createTextNode("Successfully added review.");
        success.appendChild(successmsg);
        display.appendChild(success);
 

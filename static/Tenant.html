@@ -9,7 +9,7 @@
 <body>
     <div id="tenantPage">
         <h1>Tenant Dashboard</h1>
-        <button class="logout" onclick="location.href = 'Login.html';">Log out</button>
+        <button class="logout" onclick="location.href = 'Index.html';">Log out</button>
 
         <div id="tenantSearchByLocation">
             <h2>Search by location</h2>
@@ -27,15 +27,11 @@
             <h2>Add Review</h2>
             <p>Tenant Name</p>
             <input id="tenantName" type="text"><br>
-            <button>Search</button>
-            <ul id="tenantPropertyResults">
+            <p>Enter stars for review</p>
+            <input id="rev" type="text"><br>
+            <button onclick="addReview()">Post Review</button>
+            <ul id="reviewResults">
             </ul>
-
-            <p>Property Number</p>
-            <input id="tenantPropertyNumber" type="number"><br>
-            <p>New Review</p>
-            <input id="tenantReview" type="text"><br>
-            <button>Post Review</button>
         </div>
     </div>
     
