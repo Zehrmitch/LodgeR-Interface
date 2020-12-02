@@ -9,16 +9,32 @@
     <div id="tenantPage">
         <h1>Tenant Dashboard</h1>
         <button class="logout" onclick="location.href = 'Login.html';">Log out</button>
+
         <div id="tenantSearchByLocation">
             <h2>Search by location</h2>
             <p>Location</p>
-            <input id="locationSearch" type="text"><br>
+            <input id="tenantLocationSearch" type="text"><br>
             <p>Max Price</p>
-            <input id="priceSearch" type="text"><br>
+            <input id="tenantPriceSearch" type="text"><br>
             <button>Search</button>
             <ul id="tenant1Results">
             </ul>
             <button>Book Property</button>
+        </div>
+
+        <div id="tenantAddReview">
+            <h2>Add Review</h2>
+            <p>Tenant Name</p>
+            <input id="tenantName" type="text"><br>
+            <button>Search</button>
+            <ul id="tenantPropertyResults">
+            </ul>
+
+            <p>Property Number</p>
+            <input id="tenantPropertyNumber" type="number"><br>
+            <p>New Review</p>
+            <input id="tenantReview" type="text"><br>
+            <button>Post Review</button>
         </div>
     </div>
     
