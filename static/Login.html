@@ -16,7 +16,7 @@
             <input required id="loginPasswordT" type="password"><br>
             <button>Login as Tenant</button>
         </form>
-        <form action="Landlord.html" id="landlordLogin">
+        <form onsubmit="landlordLogin( loginEmailL.value, loginPasswordL.value)" id="landlordLogin">
             <label>Email</label><br>
             <input required id="loginEmailL" type="text" placeholder="john@example.ca"><br>
             <label>Password</label><br>
@@ -24,6 +24,6 @@
             <button>Login as Landlord</button>
         </form>
     </div>
-    <script defer type="text/javascript" src="scripts.js"></script>
+    <script defer type="text/javascript" src="index.js"></script>
 </body>
 </html>

@@ -3,7 +3,9 @@ function landlordLogin(landlordEmail,landlordPassword){
     fetch('/api/loginlandlord/'+landlordEmail+'/'+landlordPassword)
     .then(
         function(response){ 
+          console.log("Landlord Login");
            if(response){
+             window.href = "Landlord.html";
 //load landlord.html
            }
            else{
@@ -14,8 +16,6 @@ function landlordLogin(landlordEmail,landlordPassword){
   .catch(function(error){
   console.log("Error:", error);
     });
-  
-
 }
 
 //Tenant login
