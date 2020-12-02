@@ -9,34 +9,41 @@
     <div id="landlordPage">
         <h1>Landlord Dashboard</h1>
         <button class="logout" onclick="location.href = 'Login.html';">Log out</button>
-        <div id="landlordShowLocations">
+        <div id="landLordShowLocations">
             <h2>Search by location</h2>
             <p>Landlord Number</p>
             <input id="landLordNum" type="text"><br>
             <p>New Price</p>
             <input id="landLordPrice" type="text"><br>
             <button onclick="updateLPropertyPrice()">Update Prices</button>
+            <div id="landlord2Results">
+
+            </div>
         </div>
 
-        <div id="landlordUpdatePrice">
-            <h2>Update Price</h2>
-            <p>Property Number</p>
-            <input id="landlordPropertyNumber" type="text"><br>
-            <p>New Price</p>
-            <input id="landlordNewPrice" type="text"><br>
-            <button>Search</button>
-            <ul id="landlord2Results">
+        <div id="landLordAddAmmenity">
+            <h2>Add Ammenity</h2>
+            <p>Account Number</p>
+            <input id="landLordAccountNumber" type="text"><br>
+            <p>New Ammenity</p>
+            <input id="landLordNewAmmenity" type="text"><br>
+            <button onclick="addBonusAmmenity()">Add Ammenity</button>
+            <div id="updatePriceDisplay">
+            </div>
+        </div>
+
+        <div id="landLordLowestStars">
+            <h2>Lowest Stars</h2>
+            <p>Account Number</p>
+            <input id="landLordAccountNumber" type="text"><br>
+            <button>Display Properties</button>
+            <ul id="landLord2Results">
             </ul>
-
+            <button>Delete Results</button>
         </div>
-
-        <p>Find all properties over a price</p>
-        <input id="landlordProperties" type="text"><br>
-        <p>Add ammenity</p>
-        <input id="landlordProperties" type="text"><br>
     </div>
 
 
-    <script defer type="text/javascript" src="scripts.js"></script>
+    <script defer type="text/javascipy" src="index.js"></script>
 </body>
 </html>

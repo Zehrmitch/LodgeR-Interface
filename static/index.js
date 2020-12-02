@@ -46,7 +46,7 @@ function updateLPropertyPrice(){
     alert("Please enter enter inputs");
   }
   let url='/api/updateproperties/'+updatePrice+'/'+accountNumL;
-  fetch(url, {method:'POST'})
+  fetch(url, {method:'PUT'})
   .then(
       function(response){ 
          if(response.status!=200){
@@ -59,7 +59,7 @@ function updateLPropertyPrice(){
          else{
       display=document.getElementbyId('landlord2Results');
       success=document.createElement('p');
-       successmsg=document.createTextNode("Could not update price. Check inputs are correct.");
+       successmsg=document.createTextNode("Successfully updated price");
        success.appendChild(successmsg);
        display.appendChild(success);
 
@@ -72,27 +72,28 @@ console.log("Error:", error);
 }
 
 function addBonusAmenity(){
-  var accountNumL=document.getElementById('landLordNum').value;
-  var updatePrice=document.getElementById('landLordPrice').value;
-
-  if((accountNumL=="")||(updatePrice=="")){
+  var accountNumL1=document.getElementById('landLordAccountNumber').value;
+  var newAmmenity=document.getElementById('landLordNewAmmenity').value;
+  
+  if((accountNumL1=="")||(minPrice=="")||(newAmmenity=="")){
     alert("Please enter enter inputs");
   }
-  let url='/api/updateproperties/'+updatePrice+'/'+accountNumL;
+
+  let url='/api/addamenity/'+accountNumL1+'/'+newAmmenity;
   fetch(url, {method:'POST'})
   .then(
       function(response){ 
          if(response.status!=200){
-       display=document.getElementById('landlord2Results');
+       display=document.getElementById('updatePriceDisplay');
        error=document.createElement('p');
-       errormsg=document.createTextNode("Could not update price. Check inputs are correct.");
+       errormsg=document.createTextNode("Could not add ammenity. Check inputs are correct.");
        error.appendChild(errormsg);
        display.appendChild(error);
          }
          else{
-      display=document.getElementbyId('landlord2Results');
+      display=document.getElementbyId('updatePriceDisplay');
       success=document.createElement('p');
-       successmsg=document.createTextNode("Could not update price. Check inputs are correct.");
+       successmsg=document.createTextNode("Successfully added ammenity");
        success.appendChild(successmsg);
        display.appendChild(success);
 

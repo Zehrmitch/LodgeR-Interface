@@ -89,9 +89,12 @@ app.put('/addreview', function(req,res){
         })
 })
 
-app.post('/addamenity', function(req,res){
-    let landlordNum = 3;
-    let amenity = "Sauna"
+app.post('/addamenity/:accountNum/:newAmmenity', function(req,res){
+   // let landlordNum = 3;
+    //let amenity = "Sauna"
+
+    let landlordNum=req.params.accountNum;
+    let amenity=req.params.newAmmenity;
 
     con.query((`SELECT propertyNum 
     FROM property
