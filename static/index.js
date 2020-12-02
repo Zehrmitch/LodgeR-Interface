@@ -10,6 +10,7 @@ function landlordLogin(landlordEmail,landlordPassword){
            }
            else{
 //load Login.html
+            window.href = "Login.html";
            }
       }
     )
@@ -24,10 +25,12 @@ function tenantLogin(tenantEmail,tenantPassword){
     .then(
         function(response){ 
            if(response){
+            window.href = "Tenant.html";
 //load tenant.html
            }
            else{
 //load login.html
+            window.href = "Login.html";
            }
       }
     )
