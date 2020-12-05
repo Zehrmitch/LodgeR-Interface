@@ -11,7 +11,7 @@
         <h1>Landlord Dashboard</h1>
         <button class="logout" onclick="location.href = 'Index.html';">Log out</button>
         <div id="landLordShowLocations">
-            <h2>Search by location</h2>
+            <h2>Update Prices</h2>
             <p>Landlord Number</p>
             <input id="landLordNum" type="text"><br>
             <p>New Price</p>
@@ -37,10 +37,13 @@
             <h2>Lowest Stars</h2>
             <p>Account Number</p>
             <input id="landLordAccountNumber2" type="text"><br>
-            <button>Display Properties</button>
+            <button onclick="getStars()">Display Properties</button>
             <ul id="landLord2Results">
             </ul>
-            <button>Delete Results</button>
+            <p>Property Number to delete</p>
+            <input id="deleteprop" type="text">
+            <button onclick="deleteResults()">Delete Property</button>
+            <div id="deletedisplay"></div>
         </div>
     </div>
 

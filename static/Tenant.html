@@ -17,18 +17,29 @@
             <input id="tenantLocationSearch" type="text"><br>
             <p>Max Price</p>
             <input id="tenantPriceSearch" type="text"><br>
-            <button>Search</button>
+        
+            <p></p>
+            <button onclick="getProperties()">Search</button>
             <ul id="tenant1Results">
             </ul>
-            <button>Book Property</button>
+            <p>Property Number</p>
+            <input id="propNum" type="text"><br>
+            <p>Tenant Number</p>
+            <input id="tNum" type="text"><br>
+            <p>Date From</p>
+            <input id="dateFrom" type="text">
+            <p>Date To</p>
+            <input id="dateTo" type="text">
+            <button onclick="bookProperty()">Book Property</button>
+            <div id="bookresults"></div>
         </div>
 
         <div id="tenantAddReview">
             <h2>Add Review</h2>
             <p>Tenant Name</p>
             <input id="tenantName" type="text"><br>
-            <p>Enter stars for review</p>
-            <input id="rev" type="text"><br>
+            <p>Enter stars for review (Number)</p>
+            <input id="rreview" type="text"><br>
             <button onclick="addReview()">Post Review</button>
             <ul id="reviewResults">
             </ul>

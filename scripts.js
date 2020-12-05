@@ -4,6 +4,7 @@ var mysql = require('mysql');
 const express = require('express');
 const app = express();
 const mssql = require("mssql");
+dateTime = require('node.date-time')
 
 app.use('/', express.static('static'))
 
@@ -22,8 +23,8 @@ con.connect(function (err) {
 });
 
 //login landlord
-app.get('/',function(req,res){
-res.render('/Login.html');
+app.get('/', function (req, res) {
+    res.render('/Login.html');
 });
 
 app.get('/loginlandlord/:email/:password', function (req, res) {
@@ -76,12 +77,9 @@ app.put('/updateproperties/:price/:num', function (req, res) {
 
 //find a property and add a review 
 app.put('/addreview/:name/:review', function (req, res) {
-    let name=req.params.name;
-    let numOfStars=req.params.review;
-    let date=new Date();
-   // let name = "Nola N. Valdez";
-    //let numOfStars = 7;
-   // let date = '2020-07-11';
+    let name = req.params.name;
+    let numOfStars = req.params.review;
+    let date = '2020-12-03';
 
     con.query((`SELECT * FROM propertyRental p WHERE p.accountNumT = (SELECT accountNumT FROM tenant t WHERE t.name = '${name}')`), (error, results) => {
         if (error) {
@@ -89,7 +87,7 @@ app.put('/addreview/:name/:review', function (req, res) {
             res.status(400).send("Something went wrong")
         } else {
             let propertyNum = results[0].propertyNum;
-            con.query((`SELECT  loanNum FROM propertyrental p WHERE p.propertyNum=${propertyNum}`), (error1, results1) => {
+            con.query((`SELECT loanNum FROM propertyrental p WHERE p.propertyNum=${propertyNum}`), (error1, results1) => {
                 if (error1) {
                     console.log(error1);
                     res.status(400).send("Something went wrong")
@@ -117,9 +115,9 @@ app.post('/addamenity/:num/:newAmmenity', function (req, res) {
     //let landlordNum = 3;
     //let amenity = "Sauna"
 
-    let landlordNum=req.params.num;
-    let amenity=req.params.newAmmenity;
-    
+    let landlordNum = req.params.num;
+    let amenity = req.params.newAmmenity;
+
     console.log(landlordNum);
     con.query((`SELECT propertyNum 
     FROM property
@@ -143,103 +141,107 @@ app.post('/addamenity/:num/:newAmmenity', function (req, res) {
     })
 
 })
-app.post('/searchproperty', function (req, res) {
-    let location = 'May Street';
-    let tenantnum = 2;
+app.get('/searchproperty/:location/:price', function (req, res) {
+    //let location = 'May Street';
+    // let tenantnum = 2;
+    let maxprice = req.params.price;
+    let location = req.params.location;
 
-    con.query((`SELECT * FROM property p WHERE p.address LIKE "%${location}%" AND p.price < 500.00 `), (error, result) => {
+    con.query((`SELECT * FROM property p WHERE p.address LIKE "%${location}%" AND p.price < ${maxprice} `), (error, result) => {
         if (error) {
             console.log("error: ", error);
         }
-        psearch = result[0];
-        console.log(psearch)
-        con.query((`SELECT currentlyRented FROM propertyRental p WHERE p.propertyNum = ${psearch.propertyNum}`), (error1, result1) => {
+        let psearch = result[0];
+        con.query((`SELECT isAvailable FROM property p WHERE p.propertyNum = ${psearch.propertyNum}`), (error1, result1) => {
             if (error1) {
                 console.log("error: ", error);
+            } else {
+                let arr = {
+                    'propertyNum': psearch.propertyNum,
+                    'address': psearch.address,
+                    'isAvailable': result1[0].isAvailable
+                }
+                console.log(arr)
+                res.status(200).send(arr)
             }
-            rented = result1[0].currentlyRented;
-            console.log(rented)
-            if (rented == 0) {
-                console.log('you can rent')
-                con.query((`INSERT INTO propertyrental VALUES(${psearch.propertyNum}, 44, '2020-10-21','2020-10-22', 1, 1, ${psearch.accountNumL})`), (error2, result2) => {
-                    if (error2) {
-                        console.log("error: ", error);
-                    }
-                    console.log(result2)
-                    con.query((`UPDATE property SET isAvailable = 1 WHERE propertyNum = ${psearch.propertyNum}`), (error3, result3) => {
-                        if (error3) {
-                            console.log("error: ", error);
-                        }
-                        console.log(result3)
-                    })
-                })
+        })
+    })
+})
+
+app.post('/rent/:accountNumT/:propertyNum/:dateFrom/:dateTo', function (req, res) {
+    let propertyNum = req.params.propertyNum;
+    let dateFrom = req.params.dateFrom;
+    let dateTo = req.params.dateTo;
+
+    let accountNumT = req.params.accountNumT;
+    let loanNum = Math.floor(Math.random() * 10)
+
+    con.query((`SELECT accountNumL FROM property p WHERE p.propertyNum = ${propertyNum}`), (error1, result1) => {
+        if (error1) {
+            console.log("error: ", error);
+        }
+        accountNumL = result1[0].accountNumL;
+        console.log(accountNumL)
+        con.query((`INSERT INTO propertyrental VALUES(${propertyNum}, ${loanNum}, '${dateFrom}' , '${dateTo}' , 1, ${accountNumT}, ${accountNumL})`), (error2, result2) => {
+            if (error2) {
+                console.log("error: ", error2);
             }
-            else {
-                console.log('cannot rent')
-            }
+            console.log(result2)
+            con.query((`UPDATE property SET isAvailable = 1 WHERE propertyNum = ${propertyNum}`), (error3, result3) => {
+                if (error3) {
+                    console.log("error: ", error3);
+                }
+                console.log(result3)
+                res.send(result3)
+            })
         })
 
     })
+
 })
 
 //show stars, and delete
-app.get(('/stars'), function (req, res) {
-    let name = "Alden Long"
-
-    con.query((`SELECT r.loanNum, r.propertyNum
-                FROM propertyrental r
-	            WHERE r.propertyNum IN (SELECT p.propertyNum
-                    FROM property p
-                    WHERE p.accountNumL IN (SELECT l.accountNumL
-                        FROM landlord l
-                        WHERE l.name LIKE "%${name}%"))`), (error, result) => {
+app.get(('/stars/:numstars'), function (req, res) {
+    let numstars = req.params.numstars;
+    con.query((`SELECT propertyNum 
+    FROM propertyrental p
+    JOIN review r
+    ON p.loanNum = r.loanNum
+    WHERE r.numOfStars = ${numstars}
+    `), (error, results) => {
         if (error) {
             console.log(error)
+        } else {
+            console.log(results[0].propertyNum)
+            let arr = {
+                "num": results[0].propertyNum
+            }
+            res.send(arr)
         }
-        //console.log(result)
-        loansearch = [];
-        propertysearch = [];
-
-        for (var i = 0; i < result.length; i++) {
-            loansearch.push(result[i].loanNum);
-            propertysearch.push(result[i].propertyNum)
-        }
-        console.log(loansearch)
-        reviews = [];
-
-        for (var i = 0; i < loansearch.length; i++) {
-            con.query(
-                
-                (`SELECT r.numOfStars
-                    FROM review r
-                    WHERE r.loanNum = ${loansearch[i]}
-                    GROUP BY r.numOfStars
-                    `), (error1, result1) => {
-                if (error1) {
-                    console.log(error)
-                } else {
-                    console.log(result1[0])
-                    reviews.push(result1[0])
-                }
-
-            })
-
-        }
-       // console.log(reviews)
-        res.status(200).send({ review: reviews, properties: propertysearch })
     })
+
 })
 
-app.delete(('/stars/:property'), function (req, res) {
+app.delete(('/delstars/:property'), function (req, res) {
     property = req.params.property;
 
     con.query((`DELETE 
     FROM property p
-    WHERE p.propertyNum = ${property}
-`))
-
-
+    WHERE p.propertyNum = ${property}`), (error, result) => {
+        if (error) {
+            console.log(error)
+        } else {
+            if (result.affectedRows == 0){
+            res.status(404).send('Does not exist')
+            }else{
+            res.status(200).send('Deleted' + property)
+            }
+        }
+    })
 })
+
+
+
 var server = app.listen(3000, function () {
     console.log('Server is listening at port 3000...');
 });
