@@ -110,10 +110,8 @@ app.put('/addreview/:name/:review', function (req, res) {
     })
 })
 
-
+//add an amenity to a property
 app.post('/addamenity/:num/:newAmmenity', function (req, res) {
-    //let landlordNum = 3;
-    //let amenity = "Sauna"
 
     let landlordNum = req.params.num;
     let amenity = req.params.newAmmenity;
@@ -141,9 +139,10 @@ app.post('/addamenity/:num/:newAmmenity', function (req, res) {
     })
 
 })
+
+//search a property my location and price
 app.get('/searchproperty/:location/:price', function (req, res) {
-    //let location = 'May Street';
-    // let tenantnum = 2;
+    
     let maxprice = req.params.price;
     let location = req.params.location;
 
@@ -168,6 +167,7 @@ app.get('/searchproperty/:location/:price', function (req, res) {
     })
 })
 
+//rent a property
 app.post('/rent/:accountNumT/:propertyNum/:dateFrom/:dateTo', function (req, res) {
     let propertyNum = req.params.propertyNum;
     let dateFrom = req.params.dateFrom;
