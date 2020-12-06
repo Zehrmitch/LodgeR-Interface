@@ -73,7 +73,7 @@ SET isAvailable = 1
 WHERE propertyNum = '${propertyNum}';
 
 #search property by number of starts
-#numstars: 4
+#numstars: 1
 SELECT propertyNum 
     FROM propertyrental p
     JOIN review r
