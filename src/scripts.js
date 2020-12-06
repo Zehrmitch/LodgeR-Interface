@@ -4,6 +4,7 @@ var mysql = require('mysql');
 const express = require('express');
 const app = express();
 const mssql = require("mssql");
+const { nextTick } = require('process');
 dateTime = require('node.date-time')
 
 app.use('/', express.static('static'))
@@ -175,27 +176,40 @@ app.post('/rent/:accountNumT/:propertyNum/:dateFrom/:dateTo', function (req, res
 
     let accountNumT = req.params.accountNumT;
     let loanNum = Math.floor(Math.random() * 10)
-
+    con.query((`SELECT isAvailable FROM property WHERE propertyNum=${propertyNum}`), (error5,result5) =>{
+        console.log(result5[0])
+     if (result5[0].isAvailable == 0){
+         //next();
+         
     con.query((`SELECT accountNumL FROM property p WHERE p.propertyNum = ${propertyNum}`), (error1, result1) => {
         if (error1) {
             console.log("error: ", error);
-        }
+            res.status(404).send('error');
+        }else{
         accountNumL = result1[0].accountNumL;
         console.log(accountNumL)
         con.query((`INSERT INTO propertyrental VALUES(${propertyNum}, ${loanNum}, '${dateFrom}' , '${dateTo}' , 1, ${accountNumT}, ${accountNumL})`), (error2, result2) => {
             if (error2) {
                 console.log("error: ", error2);
-            }
+                res.status(404).send('error');
+            }else{
             console.log(result2)
             con.query((`UPDATE property SET isAvailable = 1 WHERE propertyNum = ${propertyNum}`), (error3, result3) => {
                 if (error3) {
                     console.log("error: ", error3);
+                    res.status(404).send('error');
                 }
                 console.log(result3)
                 res.send(result3)
             })
+        }
         })
-
+    }
+    })
+     }
+     else{
+       return res.status(404).send('error');
+     }
     })
 
 })
@@ -224,6 +238,7 @@ app.get(('/stars/:numstars'), function (req, res) {
 
 app.delete(('/delstars/:property'), function (req, res) {
     property = req.params.property;
+    con.query('SET FOREIGN_KEY_CHECKS=OFF')
 
     con.query((`DELETE 
     FROM property p
